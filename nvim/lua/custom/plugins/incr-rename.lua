@@ -1,8 +1,8 @@
 return {
   'smjonas/inc-rename.nvim',
-  -- opts = {
-  --   input_buffer_type = 'dressing',
-  -- },
+  opts = {
+    input_buffer_type = 'noice',
+  },
   keys = {
     {
       '<leader>cr',

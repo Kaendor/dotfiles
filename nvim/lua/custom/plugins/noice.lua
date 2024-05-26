@@ -2,6 +2,9 @@ return {
   'folke/noice.nvim',
   event = 'VeryLazy',
   opts = {
+    cmdline = {
+      view = 'cmdline',
+    },
     lsp = {
       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
       override = {
@@ -12,6 +15,9 @@ return {
     },
     presets = {
       inc_rename = true,
+      command_palette = true,
+      bottom_search = true,
+      lsp_doc_border = true,
     },
   },
   dependencies = {

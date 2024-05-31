@@ -675,9 +675,69 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        tsserver = {
+          settings = {
+            tsserver = {
+              globalPlugins = {},
+            },
+          },
+          before_init = function(_, config)
+            local astrocore_ok, astrocore = pcall(require, 'astrocore')
+            local registry_ok, registry = pcall(require, 'mason-registry')
+            if not astrocore_ok or not registry_ok then
+              return
+            end
+
+            local volar_install_path = registry
+              .get_package('vue-language-server')
+              :get_install_path() .. '/node_modules/@vue/language-server'
+
+            local vue_plugin_config = {
+              name = '@vue/typescript-plugin',
+              location = volar_install_path,
+              languages = { 'vue' },
+              configNamespace = 'typescript',
+              enableForWorkspaceTypeScriptVersions = true,
+            }
+
+            astrocore.list_insert_unique(
+              config.settings.tsserver.globalPlugins,
+              { vue_plugin_config }
+            )
+          end,
+        },
         --
-        volar = {},
+        volar = {
+          init_options = {
+            vue = {
+              hybridMode = false,
+            },
+          },
+          settings = {
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              inlayHints = {
+                parameterNames = { enabled = 'all' },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+              },
+            },
+            javascript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              inlayHints = {
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+              },
+            },
+          },
+        },
         --
 
         lua_ls = {
@@ -899,32 +959,29 @@ require('lazy').setup({
       },
     },
     init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'catppuccin-latte'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
   },
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      -- vim.cmd.colorscheme 'tokyonight-night'
-      --
-      -- -- You can configure highlights by doing something like:
-      -- vim.cmd.hi 'Comment gui=none'
-    end,
-  },
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   'folke/tokyonight.nvim',
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   init = function()
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     -- vim.cmd.colorscheme 'tokyonight-night'
+  --     --
+  --     -- -- You can configure highlights by doing something like:
+  --     -- vim.cmd.hi 'Comment gui=none'
+  --   end,
+  -- },
 
   -- Highlight todo, notes, etc in comments
   {
@@ -999,6 +1056,7 @@ require('lazy').setup({
         'vimdoc',
         'rust',
         'typescript',
+        'vue',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -1015,8 +1073,8 @@ require('lazy').setup({
           enable = true,
           lookahead = true,
           keymaps = {
-            ['am'] = '@function.outer',
-            ['im'] = '@function.inner',
+            ['af'] = '@function.outer',
+            ['if'] = '@function.inner',
             ['ac'] = '@class.outer',
             ['ic'] = '@class.inner',
           },

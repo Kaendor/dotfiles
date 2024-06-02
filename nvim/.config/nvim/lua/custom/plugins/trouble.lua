@@ -4,8 +4,13 @@ return {
   keys = {
     {
       '<leader>dw',
-      '<cmd>Trouble diagnostics toggle filter.severity=vim.diagnostic.severity.ERROR focus=true<cr>',
+      '<cmd>Trouble diagnostics toggle focus=true<cr>',
       desc = '[D]iagnostics [W]orkspace',
+    },
+    {
+      '<leader>co',
+      '<cmd>Trouble symbols toggle win.position=left focus=true<cr>',
+      desc = '[C]ode [O]verview',
     },
   },
 }

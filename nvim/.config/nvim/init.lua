@@ -930,10 +930,10 @@ require('lazy').setup({
       },
     },
     init = function()
-      vim.cmd.colorscheme 'catppuccin-latte'
-
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
+      -- Init colorscheme here to ensure it is set before plugins are loaded
+      vim.cmd.colorscheme 'catppuccin-latte'
     end,
   },
   -- { -- You can easily change to a different colorscheme.

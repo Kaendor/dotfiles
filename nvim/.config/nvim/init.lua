@@ -920,6 +920,9 @@ require('lazy').setup({
         mini = {
           enabled = true,
         },
+        navic = {
+          enabled = true,
+        },
         treesitter_context = true,
         telescope = true,
         which_key = true,
@@ -1011,6 +1014,7 @@ require('lazy').setup({
       'neovim/nvim-lspconfig',
     },
     opts = {
+      highlight = true,
       lsp = {
         auto_attach = true,
       },
@@ -1028,13 +1032,13 @@ require('lazy').setup({
         lualine_b = { 'branch', 'diff' },
         lualine_c = { 'diagnostics' },
         lualine_x = {},
-        lualine_y = {},
+        lualine_y = { 'filetype' },
         lualine_z = { 'location' },
       },
       -- TODO: disable winbar in oil buffer
       winbar = {
-        lualine_b = { 'filetype' },
-        lualine_c = { 'filename', "require'nvim-navic'.get_location()" },
+        lualine_a = { 'filename' },
+        lualine_b = { "require'nvim-navic'.get_location()" },
       },
     },
   },

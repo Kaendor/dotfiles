@@ -485,7 +485,7 @@ require('lazy').setup({
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      { 'folke/lazydev.nvim', opts = {}, ft = 'lua' },
     },
     config = function()
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -897,6 +897,7 @@ require('lazy').setup({
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'lazydev', group_index = 0 },
           { name = 'path' },
         },
       }

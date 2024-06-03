@@ -12,5 +12,10 @@ return {
       '<cmd>Trouble symbols toggle win.position=left focus=true<cr>',
       desc = '[C]ode [O]verview',
     },
+    {
+      '<leader>ct',
+      '<cmd>Trouble todo toggle focus=true<cr>',
+      desc = '[C]ode [T]odo',
+    },
   },
 }

@@ -1009,6 +1009,10 @@ require('lazy').setup({
     end,
   },
   {
+    'linrongbin16/lsp-progress.nvim',
+    event = 'VeryLazy',
+  },
+  {
     'SmiteshP/nvim-navic',
     dependencies = {
       'neovim/nvim-lspconfig',

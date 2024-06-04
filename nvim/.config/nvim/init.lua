@@ -227,6 +227,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Neovide configuration
+if vim.g.neovide then
+  vim.g.neovide_scroll_animation_length = 0.1
+  vim.g.neovide_floating_shadow = false
+  vim.g.neovide_hide_mouse_when_typing = true
+end
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -1052,15 +1059,43 @@ require('lazy').setup({
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff' },
-        lualine_c = { 'diagnostics' },
+        lualine_c = {
+          'diagnostics',
+        },
         lualine_x = {},
-        lualine_y = { 'filetype' },
+        lualine_y = {
+          {
+            -- Lsp server name .
+            function()
+              local msg = 'No Active Lsp'
+              local buf_ft = vim.api.nvim_get_option_value('filetype', {
+                buf = 0,
+              })
+
+              local clients = vim.lsp.get_clients()
+              if next(clients) == nil then
+                return msg
+              end
+              for _, client in ipairs(clients) do
+                local filetypes = client.config.filetypes
+                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                  return client.name
+                end
+              end
+              return msg
+            end,
+            icon = ' LSP:',
+            color = { gui = 'bold' },
+          },
+          'filetype',
+        },
         lualine_z = { 'location' },
       },
       -- TODO: disable winbar in oil buffer
       winbar = {
         lualine_a = { 'filename' },
         lualine_b = { "require'nvim-navic'.get_location()" },
+        -- lualine_z = {},
       },
     },
   },

@@ -232,6 +232,7 @@ if vim.g.neovide then
   vim.g.neovide_scroll_animation_length = 0.1
   vim.g.neovide_floating_shadow = false
   vim.g.neovide_hide_mouse_when_typing = true
+  vim.o.guifont = 'FiraCode Nerd Font:h14'
 end
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -491,6 +492,7 @@ require('lazy').setup({
           --
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
+          vim.g.copilot_workspace_folders = vim.lsp.buf.list_workspace_folders()
           local map = function(keys, func, desc)
             vim.keymap.set(
               'n',
@@ -1067,7 +1069,7 @@ require('lazy').setup({
           {
             -- Lsp server name .
             function()
-              local msg = 'No Active Lsp'
+              local msg = '-'
               local buf_ft = vim.api.nvim_get_option_value('filetype', {
                 buf = 0,
               })

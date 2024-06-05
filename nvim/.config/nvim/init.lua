@@ -647,22 +647,22 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {
-          settings = {
-            tsserver = {
-              globalPlugins = {},
-            },
-          },
-          -- init_options = {
-          --   plugins = {
-          --     {
-          --       name = '@vue/typescript-plugin',
-          --       location = vue_language_server_path,
-          --       languages = { 'vue' },
-          --     },
-          --   },
-          -- },
-        },
+        -- tsserver = {
+        --   settings = {
+        --     tsserver = {
+        --       globalPlugins = {},
+        --     },
+        --   },
+        --   -- init_options = {
+        --   --   plugins = {
+        --   --     {
+        --   --       name = '@vue/typescript-plugin',
+        --   --       location = vue_language_server_path,
+        --   --       languages = { 'vue' },
+        --   --     },
+        --   --   },
+        --   -- },
+        -- },
         --
         jsonls = {
           settings = {

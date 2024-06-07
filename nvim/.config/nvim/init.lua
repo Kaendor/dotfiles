@@ -970,11 +970,10 @@ require('lazy').setup({
       'nvim-tree/nvim-web-devicons',
     },
     opts = {
-      extensions = { 'oil', 'trouble', 'lazy', 'toggleterm' },
+      extensions = { 'trouble', 'lazy', 'toggleterm' },
       options = {
         disabled_filetypes = {
           winbar = {
-            'oil',
             'trouble',
           },
           statusline = {
@@ -987,7 +986,7 @@ require('lazy').setup({
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff' },
         lualine_c = {
-          'diagnostics',
+          { 'diagnostics', sources = { 'nvim_workspace_diagnostic' } },
         },
         lualine_x = {},
         lualine_y = {
@@ -1021,15 +1020,25 @@ require('lazy').setup({
       -- TODO: disable winbar in oil buffer
       winbar = {
         lualine_a = {
-          -- function()
-          --   local ok, oil = pcall(require, 'oil')
-          --   if ok then
-          --     return vim.fn.fnamemodify(oil.get_current_dir(), ':~')
-          --   else
-          --     return ''
-          --   end
-          -- end,
-          'filename',
+          {
+            function()
+              local ok, oil = pcall(require, 'oil')
+              if ok then
+                return vim.fn.fnamemodify(oil.get_current_dir(), ':~')
+              else
+                return ''
+              end
+            end,
+            cond = function()
+              return vim.bo.filetype == 'oil'
+            end,
+          },
+          {
+            'filename',
+            cond = function()
+              return vim.bo.filetype ~= 'oil'
+            end,
+          },
         },
         lualine_b = { "require'nvim-navic'.get_location()" },
         -- lualine_z = {},

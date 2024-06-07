@@ -1021,14 +1021,14 @@ require('lazy').setup({
       -- TODO: disable winbar in oil buffer
       winbar = {
         lualine_a = {
-          function()
-            local ok, oil = pcall(require, 'oil')
-            if ok then
-              return vim.fn.fnamemodify(oil.get_current_dir(), ':~')
-            else
-              return ''
-            end
-          end,
+          -- function()
+          --   local ok, oil = pcall(require, 'oil')
+          --   if ok then
+          --     return vim.fn.fnamemodify(oil.get_current_dir(), ':~')
+          --   else
+          --     return ''
+          --   end
+          -- end,
           'filename',
         },
         lualine_b = { "require'nvim-navic'.get_location()" },

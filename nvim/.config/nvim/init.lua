@@ -1022,7 +1022,7 @@ require('lazy').setup({
             end,
           },
           {
-            'filename',
+            'ex.relative_filename',
             cond = function()
               return vim.bo.filetype ~= 'oil'
             end,

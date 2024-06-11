@@ -967,7 +967,9 @@ require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
-      'nvim-tree/nvim-web-devicons',
+      { 'dokwork/lualine-ex' },
+      { 'nvim-lua/plenary.nvim' },
+      { 'kyazdani42/nvim-web-devicons' },
     },
     opts = {
       extensions = { 'trouble', 'lazy', 'toggleterm' },
@@ -991,27 +993,13 @@ require('lazy').setup({
         lualine_x = {},
         lualine_y = {
           {
-            -- Lsp server name .
-            function()
-              local msg = '-'
-              local buf_ft = vim.api.nvim_get_option_value('filetype', {
-                buf = 0,
-              })
-
-              local clients = vim.lsp.get_clients()
-              if next(clients) == nil then
-                return msg
-              end
-              for _, client in ipairs(clients) do
-                local filetypes = client.config.filetypes
-                if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                  return client.name
-                end
-              end
-              return msg
-            end,
-            icon = ' LSP:',
-            color = { gui = 'bold' },
+            'ex.lsp.single',
+            -- If true then only clients attached to the current buffer will be shown:
+            only_attached = true,
+            -- If true then every closed client will be echoed:
+            notify_enabled = false,
+            -- The name of highlight group which should be used in echo:
+            notify_hl = 'Comment',
           },
           'filetype',
         },

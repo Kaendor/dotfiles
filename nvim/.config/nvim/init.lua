@@ -552,38 +552,59 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 
+      local get_vue_langage_server_path = function()
+        local mason_registry = require 'mason-registry'
+        return mason_registry.get_package('vue-language-server'):get_install_path()
+          .. '/node_modules/@vue/language-server/bin/vue-language-server.js'
+      end
+
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
         rust_analyzer = {},
         eslint_d = {},
         eslint = {
           settings = { autoFixOnSave = true },
         },
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`tsserver`) will work just fine
-        -- tsserver = {
-        --   settings = {
-        --     tsserver = {
-        --       globalPlugins = {},
-        --     },
-        --   },
-        --   -- init_options = {
-        --   --   plugins = {
-        --   --     {
-        --   --       name = '@vue/typescript-plugin',
-        --   --       location = vue_language_server_path,
-        --   --       languages = { 'vue' },
-        --   --     },
-        --   --   },
-        --   -- },
-        -- },
-        --
+        tsserver = {
+          settings = {
+            -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
+            javascript = {
+              -- { format = { enable = false } },
+              inlayHints = {
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = true,
+              },
+            },
+            typescript = {
+              -- { format = { enable = false } },
+              inlayHints = {
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = true,
+              },
+            },
+          },
+          filetypes = {
+            'vue',
+          },
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = get_vue_langage_server_path(),
+                languages = { 'vue' },
+              },
+            },
+          },
+        },
         jsonls = {
           settings = {
             json = {
@@ -592,7 +613,7 @@ require('lazy').setup({
             },
           },
         },
-        --
+
         volar = {
           init_options = {
             vue = {
@@ -624,7 +645,6 @@ require('lazy').setup({
             },
           },
         },
-        --
 
         lua_ls = {
           -- cmd = {...},

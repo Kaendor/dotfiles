@@ -1,5 +1,11 @@
 return {
   'sindrets/diffview.nvim',
   event = 'VeryLazy',
-  opts = {},
+  opts = {
+    view = {
+      merge_tool = {
+        layout = 'diff3_mixed',
+      },
+    },
+  },
 }

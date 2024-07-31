@@ -1050,7 +1050,9 @@ require('lazy').setup({
           },
         },
         lualine_b = { "require'nvim-navic'.get_location()" },
-        -- lualine_z = {},
+        lualine_z = {
+          'overseer',
+        },
       },
     },
   },

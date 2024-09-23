@@ -11,13 +11,13 @@ end
 
 return {
   'pmizio/typescript-tools.nvim',
+  -- enabled = false,
   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
-
   opts = {
-    capabilities = getCapabilities(),
+    -- capabilities = getCapabilities(),
     settings = {
       separate_diagnostic_server = false,
-      expose_as_code_action = { 'all' },
+      expose_as_code_action = {},
       tsserver_plugins = {
         '@vue/typescript-plugin',
       },

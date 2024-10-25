@@ -348,7 +348,7 @@ require('lazy').setup({
       require('which-key').setup()
 
       -- Document existing key chains
-      require('which-key').add {
+      require('which-key').add({
         { '<leader>c', group = '[C]ode' },
         { '<leader>d', group = '[D]iagnostics' },
         { '<leader>r', group = '[R]ename' },
@@ -356,7 +356,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]asks' },
         { '<leader>g', group = '[G]it' },
-      }
+      }, { mode = 'n' })
 
       -- visual mode
       require('which-key').add({

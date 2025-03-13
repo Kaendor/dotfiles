@@ -1,23 +1,22 @@
-local function getCapabilities()
-  -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
-  return capabilities
-end
-
 return {
   'pmizio/typescript-tools.nvim',
-  -- enabled = false,
+  enabled = false,
   dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
   opts = {
     -- capabilities = getCapabilities(),
+    init_options = {
+      plugins = {
+        {
+          name = '@vue/typescript-plugin',
+          location = vim.fn.stdpath 'data'
+            .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+          languages = { 'vue' },
+        },
+      },
+    },
     settings = {
       separate_diagnostic_server = false,
-      expose_as_code_action = {},
+      expose_as_code_action = 'all',
       tsserver_plugins = {
         '@vue/typescript-plugin',
       },

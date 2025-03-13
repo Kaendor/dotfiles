@@ -684,47 +684,6 @@ require('lazy').setup({
         eslint = {
           settings = { autoFixOnSave = true },
         },
-        -- tsserver = {
-        --   settings = {
-        --     -- taken from https://github.com/typescript-language-server/typescript-language-server#workspacedidchangeconfiguration
-        --     javascript = {
-        --       -- { format = { enable = false } },
-        --       inlayHints = {
-        --         includeInlayEnumMemberValueHints = true,
-        --         includeInlayFunctionLikeReturnTypeHints = true,
-        --         includeInlayFunctionParameterTypeHints = true,
-        --         includeInlayParameterNameHints = 'all',
-        --         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        --         includeInlayPropertyDeclarationTypeHints = true,
-        --         includeInlayVariableTypeHints = true,
-        --       },
-        --     },
-        --     typescript = {
-        --       -- { format = { enable = false } },
-        --       inlayHints = {
-        --         includeInlayEnumMemberValueHints = true,
-        --         includeInlayFunctionLikeReturnTypeHints = true,
-        --         includeInlayFunctionParameterTypeHints = true,
-        --         includeInlayParameterNameHints = 'all',
-        --         includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        --         includeInlayPropertyDeclarationTypeHints = true,
-        --         includeInlayVariableTypeHints = true,
-        --       },
-        --     },
-        --   },
-        --   -- filetypes = {
-        --   --   'vue',
-        --   -- },
-        --   -- init_options = {
-        --   --   plugins = {
-        --   --     {
-        --   --       name = '@vue/typescript-plugin',
-        --   --       location = get_vue_langage_server_path(),
-        --   --       languages = { 'vue' },
-        --   --     },
-        --   --   },
-        --   -- },
-        -- },
         jsonls = {
           settings = {
             json = {
@@ -733,7 +692,42 @@ require('lazy').setup({
             },
           },
         },
-
+        ts_ls = {
+          filetypes = {
+            'typescript',
+            'javascript',
+            'javascriptreact',
+            'typescriptreact',
+            'vue',
+          },
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = vim.fn.stdpath 'data'
+                  .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                languages = { 'vue' },
+              },
+            },
+          },
+          settings = {
+            typescript = {
+              tsserver = {
+                useSyntaxServer = false,
+              },
+              inlayHints = {
+                includeInlayParameterNameHints = 'all',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
         volar = {
           init_options = {
             vue = {
@@ -742,30 +736,27 @@ require('lazy').setup({
           },
           settings = {
             typescript = {
-              updateImportsOnFileMove = { enabled = 'always' },
               inlayHints = {
-                parameterNames = { enabled = 'all' },
-                parameterTypes = { enabled = true },
-                variableTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                enumMemberValues = { enabled = true },
-              },
-            },
-            javascript = {
-              updateImportsOnFileMove = { enabled = 'always' },
-              inlayHints = {
-                parameterNames = { enabled = 'literals' },
-                parameterTypes = { enabled = true },
-                variableTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                enumMemberValues = { enabled = true },
+                enumMemberValues = {
+                  enabled = true,
+                },
+                functionLikeReturnTypes = {
+                  enabled = true,
+                },
+                propertyDeclarationTypes = {
+                  enabled = true,
+                },
+                parameterTypes = {
+                  enabled = true,
+                  suppressWhenArgumentMatchesName = true,
+                },
+                variableTypes = {
+                  enabled = true,
+                },
               },
             },
           },
         },
-
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},

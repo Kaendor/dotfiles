@@ -672,12 +672,6 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 
-      local get_vue_langage_server_path = function()
-        local mason_registry = require 'mason-registry'
-        return mason_registry.get_package('vue-language-server'):get_install_path()
-          .. '/node_modules/@vue/language-server/bin/vue-language-server.js'
-      end
-
       local servers = {
         rust_analyzer = {},
         eslint_d = {},
@@ -820,22 +814,17 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-        }
-      end,
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_format = 'fallback',
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
-        typescript = { { 'eslint_d', 'prettier' } },
-        typescriptreact = { { 'eslint_d', 'prettier' } },
-        javascript = { { 'eslint_d', 'prettier' } },
-        javascriptreact = { { 'eslint_d', 'prettier' } },
+        typescript = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
+        vue = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
+        typescriptreact = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
+        javascript = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
+        javascriptreact = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --

@@ -820,11 +820,11 @@ require('lazy').setup({
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        typescript = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
-        vue = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
-        typescriptreact = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
-        javascript = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
-        javascriptreact = { { 'eslint', 'prettier', 'eslint_d', 'deno_fmt' } },
+        typescript = { { 'eslint', 'prettier', 'eslint_d' } },
+        vue = { { 'eslint', 'prettier', 'eslint_d' } },
+        typescriptreact = { { 'eslint', 'prettier', 'eslint_d' } },
+        javascript = { { 'eslint', 'prettier', 'eslint_d' } },
+        javascriptreact = { { 'eslint', 'prettier', 'eslint_d' } },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1092,7 +1092,6 @@ require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
-      { 'dokwork/lualine-ex' },
       { 'nvim-lua/plenary.nvim' },
       { 'kyazdani42/nvim-web-devicons' },
     },
@@ -1117,15 +1116,7 @@ require('lazy').setup({
         },
         lualine_x = {},
         lualine_y = {
-          {
-            'ex.lsp.single',
-            -- If true then only clients attached to the current buffer will be shown:
-            only_attached = true,
-            -- If true then every closed client will be echoed:
-            notify_enabled = false,
-            -- The name of highlight group which should be used in echo:
-            notify_hl = 'Comment',
-          },
+          'lsp_status',
           'filetype',
         },
         lualine_z = { 'location' },
@@ -1200,7 +1191,22 @@ require('lazy').setup({
             ['if'] = '@function.inner',
             ['ac'] = '@class.outer',
             ['ic'] = '@class.inner',
+            ['is'] = {
+              query = '@local.scope',
+              query_group = 'locals',
+              desc = 'Inside Scope',
+            },
+            ['as'] = {
+              query = '@local.scope',
+              query_group = 'locals',
+              desc = 'Around Scope',
+            },
           },
+          selection_modes = {
+            ['@parameter.outer'] = 'v',
+            ['@function.outer'] = 'V',
+          },
+          include_surrounding_whitespace = true,
         },
         lsp_interop = {
           enable = true,

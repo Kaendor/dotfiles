@@ -1110,7 +1110,7 @@ require('lazy').setup({
       },
       sections = {
         lualine_a = { 'mode' },
-        lualine_b = { 'branch', 'diff' },
+        lualine_b = { 'diff' },
         lualine_c = {
           { 'diagnostics', sources = { 'nvim_workspace_diagnostic' } },
         },

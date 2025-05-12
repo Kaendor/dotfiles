@@ -1,0 +1,14 @@
+default-timeout=10000
+# Colors
+
+background-color=#eff1f5
+text-color=#4c4f69
+border-color=#88c0d0
+progress-color=over #ccd0da
+border-radius=1
+font=JetBrains Mono 14
+anchor=top-right
+margin=10
+
+[urgency=high]
+border-color=#fe640b

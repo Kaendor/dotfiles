@@ -996,10 +996,9 @@ require('lazy').setup({
         },
       },
       sections = {
-        lualine_a = { 'mode' },
+        lualine_a = { 'filename' },
         lualine_b = { 'diff' },
         lualine_c = {
-          'filename',
           { 'diagnostics', sources = { 'nvim_workspace_diagnostic' } },
         },
         lualine_x = {},

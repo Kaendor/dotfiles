@@ -394,12 +394,11 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', config = {} }, -- NOTE: Must be loaded before dependants
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -561,6 +560,11 @@ require('lazy').setup({
 
       local servers = {
         rust_analyzer = {},
+        -- gleam = {
+        --   filetypes = { 'gleam' },
+        --   cmd = { 'gleam', 'lsp' },
+        --   -- root_dir = lspconfig.util.root_pattern('gleam.toml', '.git'),
+        -- },
         eslint_d = {},
         eslint = {
           settings = { autoFixOnSave = true },
@@ -609,35 +613,35 @@ require('lazy').setup({
             },
           },
         },
-        volar = {
-          init_options = {
-            vue = {
-              hybridMode = false,
-            },
-          },
-          settings = {
-            typescript = {
-              inlayHints = {
-                enumMemberValues = {
-                  enabled = true,
-                },
-                functionLikeReturnTypes = {
-                  enabled = true,
-                },
-                propertyDeclarationTypes = {
-                  enabled = true,
-                },
-                parameterTypes = {
-                  enabled = true,
-                  suppressWhenArgumentMatchesName = true,
-                },
-                variableTypes = {
-                  enabled = true,
-                },
-              },
-            },
-          },
-        },
+        -- volar = {
+        --   init_options = {
+        --     vue = {
+        --       hybridMode = false,
+        --     },
+        --   },
+        --   settings = {
+        --     typescript = {
+        --       inlayHints = {
+        --         enumMemberValues = {
+        --           enabled = true,
+        --         },
+        --         functionLikeReturnTypes = {
+        --           enabled = true,
+        --         },
+        --         propertyDeclarationTypes = {
+        --           enabled = true,
+        --         },
+        --         parameterTypes = {
+        --           enabled = true,
+        --           suppressWhenArgumentMatchesName = true,
+        --         },
+        --         variableTypes = {
+        --           enabled = true,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -671,6 +675,8 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = {},
+        automatic_enable = true,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -707,11 +713,19 @@ require('lazy').setup({
       },
       formatters_by_ft = {
         lua = { 'stylua' },
-        typescript = { { 'eslint', 'prettier', 'eslint_d' } },
-        vue = { { 'eslint', 'prettier', 'eslint_d' } },
-        typescriptreact = { { 'eslint', 'prettier', 'eslint_d' } },
-        javascript = { { 'eslint', 'prettier', 'eslint_d' } },
-        javascriptreact = { { 'eslint', 'prettier', 'eslint_d' } },
+        vue = { { 'eslint', 'prettier' } },
+        typescript = {
+          'eslint_d',
+        },
+        typescriptreact = {
+          'eslint_d',
+        },
+        javascript = {
+          'eslint_d',
+        },
+        javascriptreact = {
+          'eslint_d',
+        },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1001,7 +1015,9 @@ require('lazy').setup({
         lualine_c = {
           { 'diagnostics', sources = { 'nvim_workspace_diagnostic' } },
         },
-        lualine_x = {},
+        lualine_x = {
+          -- { require 'mcphub.extensions.lualine' },
+        },
         lualine_y = {
           'lsp_status',
           'filetype',

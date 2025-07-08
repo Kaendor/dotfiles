@@ -2,7 +2,7 @@
 # Colors
 
 background-color=#eff1f5
-# text-color=#4c4f69
+text-color=#4c4f69
 # border-color=#88c0d0
 progress-color=over #ccd0da
 # border-radius=1
@@ -31,7 +31,7 @@ max-visible=5
 layer=overlay
 anchor=top-right
 
-text-color=#cad3f5
+# text-color=#cad3f5
 border-color=#c6a0f6
 progress-color=over #B4A1DB
 

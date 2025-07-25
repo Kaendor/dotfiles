@@ -2,7 +2,7 @@
 
 # Font
 #font_family             FiraCodeNFM-Reg
-font_family             MonaspiceNe NFM:style=Bold
+# font_family             MonaspiceNe NFM:style=Bold
 
 
 # The basic colors
@@ -75,3 +75,12 @@ color14 #81C8BE
 # white
 color7  #B5BFE2
 color15 #A5ADCE
+
+
+# BEGIN_KITTY_FONTS
+font_family      family="FiraCode Nerd Font Mono"
+font_size	 12.0
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+# END_KITTY_FONTS

@@ -1,11 +1,27 @@
 return {
-  'CopilotC-Nvim/CopilotChat.nvim',
-  dependencies = {
-    { 'nvim-lua/plenary.nvim', branch = 'master' },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', branch = 'master' },
+    },
+    build = 'make tiktoken',
+    setup = function()
+      -- local chat = require 'CopilotChat'
+    end,
+    opts = {
+      -- See Configuration section for options
+      selection = function(source)
+        return require('CopilotChat.select').visual(source)
+          or require('CopilotChat.select').line(source)
+      end,
+    },
+    keys = {
+      {
+        '<leader>ap',
+        '<cmd>CopilotChatPrompts<CR>',
+        mode = { 'n', 'v' },
+        desc = '[A]i [P]rompt',
+      },
+    },
   },
-  build = 'make tiktoken',
 }
--- config = function()
---   -- local chat = require 'CopilotChat'
---   -- vim.keymap.set('n', '<leader>ap', chat.select_prompt, { desc = '[A]i [P]rompt' })
--- end,

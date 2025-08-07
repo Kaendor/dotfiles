@@ -10,6 +10,9 @@ return {
     end,
     opts = {
       -- See Configuration section for options
+      highlight_headers = false,
+      separator = '---',
+      error_header = '> [!ERROR] Error',
       selection = function(source)
         return require('CopilotChat.select').visual(source)
           or require('CopilotChat.select').line(source)

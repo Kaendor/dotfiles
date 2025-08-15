@@ -4,5 +4,6 @@ return {
   event = 'VeryLazy',
   opts = {
     enable = true,
+    multiline_threshold = 8,
   },
 }

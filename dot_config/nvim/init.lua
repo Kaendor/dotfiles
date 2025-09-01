@@ -871,6 +871,10 @@ require('lazy').setup({
         mini = {
           enabled = true,
         },
+        indent_blankline = {
+          enabled = true,
+          colored_indent_levels = true,
+        },
         -- navic = {
         --   enabled = true,
         -- },
@@ -878,6 +882,11 @@ require('lazy').setup({
         telescope = true,
         which_key = true,
         rainbow_delimiters = true,
+        diffview = true,
+        noice = true,
+        snacks = {
+          enabled = true,
+        },
       },
     },
     init = function()

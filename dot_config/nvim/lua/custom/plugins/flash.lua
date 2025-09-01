@@ -7,7 +7,7 @@ return {
     keys = 'nteshdmgiroauflpywjbcqz',
   },
   keys = {
-    { 'f', mode = { 'n', 'x', 'v' }, '<cmd>HopChar1<cr>', desc = 'Hop char1' },
-    { 'F', mode = { 'n', 'x', 'v' }, '<cmd>HopChar1BC<cr>', desc = 'Hop char1' },
+    { 'f', mode = { 'n', 'x', 'v' }, '<cmd>HopChar2<cr>', desc = 'Hop char1' },
+    { 'F', mode = { 'n', 'x', 'v' }, '<cmd>HopChar2BC<cr>', desc = 'Hop char1 reverse' },
   },
 }

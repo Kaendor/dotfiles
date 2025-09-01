@@ -2,6 +2,7 @@ return {
   'folke/snacks.nvim',
   ---@type snacks.Config
   opts = {
+    scope = {},
     indent = {
       indent = {
         -- your indent configuration comes here
